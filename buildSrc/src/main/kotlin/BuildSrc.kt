@@ -40,9 +40,9 @@ fun Project.configurePublishConfig(
 		}
 
 		scm {
-			connection.set("scm:git:https://github.com/ShIroRRen/NGA-SDK.git")
-			developerConnection.set("scm:git:https://github.com/ShIroRRen/NGA-SDK.git")
-			url.set("https://github.com/ShIroRRen/NGA-SDK.git")
+			connection.set("scm:git:https://github.com/NGA-SDK/NGA-SDK.kt")
+			developerConnection.set("scm:git:https://github.com/NGA-SDK/NGA-SDK.kt")
+			url.set("https://github.com/NGA-SDK/NGA-SDK.kt")
 		}
 	}
 
