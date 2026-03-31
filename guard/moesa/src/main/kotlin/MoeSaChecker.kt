@@ -18,8 +18,7 @@ class MoeSaChecker : GenDokiInitializer() {
 		fun kill(): Nothing = killProcess(myPid()).let { exitProcess(-1) }
 
 		val pmProc = Runtime.getRuntime().exec(arrayOf("pm", "path", packageName))
-		val pmApkPath =
-			pmProc.inputStream.bufferedReader().useLines { it.firstOrNull()?.removePrefix("package:") }
+		val pmApkPath = pmProc.inputStream.bufferedReader().useLines { it.firstOrNull()?.removePrefix("package:") }
 		if (apkPath != pmApkPath) kill()
 
 		val startOk = apkPath.startsWith("/data/app/")

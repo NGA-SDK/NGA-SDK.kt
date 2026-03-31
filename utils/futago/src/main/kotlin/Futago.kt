@@ -11,8 +11,7 @@ import com.highcapable.kavaref.resolver.processor.MemberProcessor
 import kotlin.reflect.KClass
 
 class FutagoAppsDelegate<T : Application>(
-	private val clazzes: List<KClass<T>>,
-	var resolver: MemberProcessor.Resolver = MemberProcessor.globalResolver
+	private val clazzes: List<KClass<T>>, var resolver: MemberProcessor.Resolver = MemberProcessor.globalResolver
 ) {
 	val instances by lazy {
 		clazzes.map {
@@ -32,8 +31,7 @@ class FutagoAppsDelegate<T : Application>(
 	fun appsTerminate() = instances.forEach { it.onTerminate() }
 	fun appsLowMemory() = instances.forEach { it.onLowMemory() }
 	fun appsTrimMemory(level: Int) = instances.forEach { it.onTrimMemory(level) }
-	fun appsConfigurationChanged(newConfig: Configuration) =
-		instances.forEach { it.onConfigurationChanged(newConfig) }
+	fun appsConfigurationChanged(newConfig: Configuration) = instances.forEach { it.onConfigurationChanged(newConfig) }
 }
 
 interface FutagoAppsLoader<T> where T : Application, T : FutagoAppsLoader<T> {
@@ -44,6 +42,5 @@ interface FutagoAppsLoader<T> where T : Application, T : FutagoAppsLoader<T> {
 	fun appsTerminate() = futagoDelegate.appsTerminate()
 	fun appsLowMemory() = futagoDelegate.appsLowMemory()
 	fun appsTrimMemory(level: Int) = futagoDelegate.appsTrimMemory(level)
-	fun appsConfigurationChanged(newConfig: Configuration) =
-		futagoDelegate.appsConfigurationChanged(newConfig)
+	fun appsConfigurationChanged(newConfig: Configuration) = futagoDelegate.appsConfigurationChanged(newConfig)
 }
