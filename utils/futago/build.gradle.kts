@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
 	id("com.android.library")
-	kotlin("android")
 	`maven-publish`
 	id("com.palantir.git-version")
 }
@@ -11,8 +10,8 @@ kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_17
 
 android {
 	namespace = "work.niggergo.app.futago"
-	compileSdk = 36
-	buildToolsVersion = "36.1.0"
+	compileSdk = libs.versions.compileSdk.get().toInt()
+	buildToolsVersion = libs.versions.buildTools.get()
 
 	defaultConfig {
 		minSdk = 1
@@ -42,7 +41,7 @@ android {
 
 // noinspection GradleDynamicVersion
 dependencies {
-	implementation("com.highcapable.kavaref:kavaref-core:+")
+	implementation(libs.kavaref)
 }
 
 afterEvaluate {

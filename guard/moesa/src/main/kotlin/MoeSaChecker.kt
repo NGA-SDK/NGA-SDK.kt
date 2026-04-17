@@ -1,8 +1,10 @@
 @file:Suppress("PackageDirectoryMismatch", "unused")
 
-package work.niggergo.app.e_war.sandbox.moesa
+package work.niggergo.app.sandocube.moesa
 
 import android.app.Application
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Process.killProcess
 import android.os.Process.myPid
 import android.system.Os.stat
@@ -13,9 +15,8 @@ import kotlin.system.exitProcess
 
 class MoeSaChecker : GenDokiInitializer() {
 	override fun Application.onInit() = runCatching {
-		val apkPath = applicationInfo.sourceDir
-		val apkStat = stat(apkPath)
 		fun kill(): Nothing = killProcess(myPid()).let { exitProcess(-1) }
+		val apkPath = applicationInfo.sourceDir
 
 		val pmProc = Runtime.getRuntime().exec(arrayOf("pm", "path", packageName))
 		val pmApkPath = pmProc.inputStream.bufferedReader().useLines { it.firstOrNull()?.removePrefix("package:") }
@@ -26,16 +27,19 @@ class MoeSaChecker : GenDokiInitializer() {
 		val pkgOk = apkPath.contains("/$packageName")
 		if (!startOk || !endOk || !pkgOk) kill()
 
+		if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) return
+
+		val apkStat = stat(apkPath)
 		val uid = apkStat.st_uid
 		val gid = apkStat.st_gid
 		if (uid to gid != 1000 to 1000) kill()
 
-		fun StructStat.modeBits(r: Int, w: Int, x: Int): Int {
+		fun StructStat.modeBits(r: Int, w: Int, x: Int) = run {
 			var value = 0
 			if (st_mode and r != 0) value += 4
 			if (st_mode and w != 0) value += 2
 			if (st_mode and x != 0) value += 1
-			return value
+			value
 		}
 
 		val user = apkStat.modeBits(S_IRUSR, S_IWUSR, S_IXUSR)
@@ -44,5 +48,5 @@ class MoeSaChecker : GenDokiInitializer() {
 		if (user !in 5..6) kill()
 		if (group !in 4..5) kill()
 		if (other !in 4..5) kill()
-	}.onFailure { error("") }.let {}
+	}.onFailure { error(Unit) }.let {}
 }

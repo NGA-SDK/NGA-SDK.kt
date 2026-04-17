@@ -6,15 +6,6 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-
-// noinspection GradleDynamicVersion
-plugins {
-	// noinspection AndroidGradlePluginVersion
-	id 'com.android.library' version '8.13.2' apply false
-	id 'org.jetbrains.kotlin.android' version '+' apply false
-	id 'com.palantir.git-version' version '+' apply false
-}
-
 dependencyResolutionManagement {
 	repositories {
 		mavenLocal()
@@ -26,4 +17,5 @@ dependencyResolutionManagement {
 
 rootProject.name = 'NGA SDK'
 
-include ':guard:moesa', ':utils:gendoki', ':utils:futago'
+include ':guard:moesa'
+include ':utils:gendoki', ':utils:futago'

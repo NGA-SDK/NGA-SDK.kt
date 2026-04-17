@@ -13,15 +13,15 @@ fun Project.configurePublishConfig(
 	version = versionDetails().lastTag ?: "0.0"
 
 	pom {
-		name.set("NGA SDK${if (modName.isNotEmpty()) " $modName" else ""}")
-		description.set(desc)
-		url.set("https://app.niggergo.work/nga/")
+		name = "NGA SDK${if (modName.isNotEmpty()) " $modName" else ""}"
+		description = desc
+		url = "https://app.niggergo.work/nga/"
 
 		licenses {
 			license {
-				name.set("F2DLPRL")
-				url.set("https://license.fileto.download/LICENSE.txt")
-				distribution.set("repo")
+				name = "F2DLPRL"
+				url = "https://license.fileto.download/LICENSE.txt"
+				distribution = "repo"
 			}
 		}
 
@@ -35,14 +35,14 @@ fun Project.configurePublishConfig(
 		}
 
 		organization {
-			name.set("OOM WG")
-			url.set("https://oom-wg.dev")
+			name = "OOM WG"
+			url = "https://oom-wg.dev"
 		}
 
 		scm {
-			connection.set("scm:git:https://github.com/NGA-SDK/NGA-SDK.kt")
-			developerConnection.set("scm:git:https://github.com/NGA-SDK/NGA-SDK.kt")
-			url.set("https://github.com/NGA-SDK/NGA-SDK.kt")
+			connection = "scm:git:https://github.com/NGA-SDK/NGA-SDK.kt"
+			developerConnection = "scm:git:https://github.com/NGA-SDK/NGA-SDK.kt"
+			url = "https://github.com/NGA-SDK/NGA-SDK.kt"
 		}
 	}
 
@@ -51,7 +51,5 @@ fun Project.configurePublishConfig(
 		else             -> listOf(
 			"${name}RuntimeClasspath", "${name}CompileKlibraries"
 		).firstOrNull { project.configurations.findByName(it) != null }
-	}?.let {
-		versionMapping { allVariants { fromResolutionOf(it) } }
-	}
+	}?.let { versionMapping { allVariants { fromResolutionOf(it) } } }
 }

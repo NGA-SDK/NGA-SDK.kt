@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
 	id("com.android.library")
-	kotlin("android")
 	`maven-publish`
 	id("com.palantir.git-version")
 }
@@ -11,8 +10,8 @@ kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
 android {
 	namespace = "work.niggergo.app.gendoki"
-	compileSdk = 36
-	buildToolsVersion = "36.1.0"
+	compileSdk = libs.versions.compileSdk.get().toInt()
+	buildToolsVersion = libs.versions.buildTools.get()
 
 	defaultConfig {
 		minSdk = 1

@@ -5,6 +5,8 @@ package work.niggergo.app.futago
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.resolver.processor.MemberProcessor
@@ -30,7 +32,10 @@ class FutagoAppsDelegate<T : Application>(
 	fun appsCreate() = instances.forEach { it.onCreate() }
 	fun appsTerminate() = instances.forEach { it.onTerminate() }
 	fun appsLowMemory() = instances.forEach { it.onLowMemory() }
-	fun appsTrimMemory(level: Int) = instances.forEach { it.onTrimMemory(level) }
+	fun appsTrimMemory(level: Int) = instances.forEach {
+		if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH) it.onTrimMemory(level)
+	}
+
 	fun appsConfigurationChanged(newConfig: Configuration) = instances.forEach { it.onConfigurationChanged(newConfig) }
 }
 

@@ -1,0 +1,14 @@
+[versions]
+gitVersion = "5.+"
+
+compileSdk = "37"
+buildTools = "37.0.0"
+
+[libraries]
+gitVersion = { module = "com.palantir.gradle.gitversion:gradle-git-version", version.ref = "gitVersion" }
+
+kavaref = "com.highcapable.kavaref:kavaref-core:1.0.+"
+
+[plugins]
+androidLibrary = "com.android.library:9.0.0-alpha06"
+gitVersion = { id = "com.palantir.git-version" }

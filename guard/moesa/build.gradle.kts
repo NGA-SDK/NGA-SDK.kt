@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
 	id("com.android.library")
-	kotlin("android")
 	`maven-publish`
 	id("com.palantir.git-version")
 }
@@ -10,12 +9,12 @@ plugins {
 kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
 android {
-	namespace = "work.niggergo.app.e_war.sandbox.moesa"
-	compileSdk = 36
-	buildToolsVersion = "36.1.0"
+	namespace = "work.niggergo.app.sandocube.moesa"
+	compileSdk = libs.versions.compileSdk.get().toInt()
+	buildToolsVersion = libs.versions.buildTools.get()
 
 	defaultConfig {
-		minSdk = 1
+		minSdk = 4
 		consumerProguardFiles("consumer-rules.pro")
 	}
 	buildTypes {
@@ -50,7 +49,7 @@ afterEvaluate {
 		publications {
 			create<MavenPublication>(
 				"release", configurePublishConfig(
-					"MoeSa", "EWar Sandbox MoeSa", "work.niggergo.app.e_war.sandbox"
+					"MoeSa", "SandoCube MoeSa", "work.niggergo.app.sandocube"
 				)
 			)
 		}
